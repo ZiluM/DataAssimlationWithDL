@@ -47,15 +47,10 @@ config['Nino34'] = {'xa':[],'xp':[]}
 
 
 all_obs_type = utils.get_obs_type2(config)
-# print (all_obs_type)
+
 all_obs = utils.get_obs2(all_obs_type,config)
 utils.save_obs(all_obs,config)
 
-# load ensemble
-# if config['forecast_model'] == 'offline':
-#     ens_xp = np.zeros((config['Nens'],12,mypara.lev_range[1]-mypara.lev_range[0],mypara.lat_range[1]-mypara.lat_range[0],mypara.lon_range[1]-mypara.lon_range[0]))
-#     config['lons']
-# else:
 ens_xp = utils.init_ensemble(config,mypara) # Nens,12,lev,lat,lon
 
 
@@ -66,7 +61,7 @@ Nens = config['Nens']
 Nlev = config['level_num']
 Nlat = mypara.lat_range[1] - mypara.lat_range[0]
 Nlon = mypara.lon_range[1] - mypara.lon_range[0]
-# Model ======================
+# Model Init ======================
 if config['forecast_model'] == 'dl':
     adr_model = config['model_path']
     mymodel = Geoformer(mypara).to(mypara.device)
@@ -109,16 +104,14 @@ elif config['forecast_model'] == 'lim1':
     function_prediction = utils.lim_forecast1
 
 xa_ls = []
-# ens_xp: Nens,10,lev,lat,lon
-# xp: Nens,1,lev,lat,lon
+
 obs_idx = 0
+
+# DA starts
 for DA_t in range(0,config['DA_length'],config['obs_mean_length']):
     logger.info("DA Cycle: Current Time:" + str(config['current_time']))
     logger.info("Forecast Time:" + str(config['current_time'])) # current time after one predtion time 
-    xp = function_prediction(ens_xp,mymodel,config,mypara) # Nens,obs_mean_length,lev,lat,lon
-    # rescale
-    # xp = utils.rescale(xp,config) # all data are not unit for deel learning forecast
-    # ens_xp = np.concatenate([ens_xp[:,1:],xp],axis=1)
+    xp = function_prediction(ens_xp,mymodel,config,mypara) # Nens,
     obs_data = all_obs[obs_idx]
     obs_idx = obs_idx + 1
     logger.info("Assimilation Step:" + str(DA_t))
@@ -128,14 +121,11 @@ for DA_t in range(0,config['DA_length'],config['obs_mean_length']):
         obs_type = all_obs_type[i]
 
         zp = utils.H(xp,obs_type,config) 
-        # print(zp)
-        # print(zp.shape)
+
         xa = utils.enkf_update_array(xp.reshape(Nens,-1).T,obs_data[i],zp,obs_type['error_var'],config=config).T # Nens,-1
         xa = xa.reshape(Nens,config['obs_mean_length'],Nlev,Nlat,Nlon)
-        # print(ens_xa)
-        # print(ens_xa.shape)
+
         xp = xa
-    # xa_ls.append(xa)
     xp = utils.del_xp(config,ens_xp[:,-config['obs_mean_length']:],xa)
     logger.info("xp var:" + str(np.var(xp,axis=0).mean()))
     utils.save_xa(xa,config)
