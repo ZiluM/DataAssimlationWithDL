@@ -45,7 +45,7 @@ mypara.W0 = int((mypara.lon_range[1] - mypara.lon_range[0]) / mypara.patch_size[
 mypara.emb_spatial_size = mypara.H0 * mypara.W0
 
 # model
-mypara.model_savepath = "./model/alltrop/"
+mypara.model_savepath = "./model/"
 mypara.seeds = 1
 mypara.d_size = 256
 mypara.nheads = 4

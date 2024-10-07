@@ -1,24 +1,36 @@
-job_name: 'poppo0p09' # name of the job # means add variance to the analysis
+job_name: 'dl_12' # name of the job 
+forecast_model: 'dl' # name of the forecast model
+seed: 10
 # ==============================
-start_time: "1980010100" # YYYYMMDDHH
-DA_length: 400 # in months
+start_time: "1980030100" # YYYYMMDDHH
+DA_length: 120 # in months
 # ==============================
-Nobs: 3 # number of observations
-obs_locs: [[269,0],[278,7],[123,-6]]
-# obs_mean_length: 3 # in months
+# Nobs: 8 # number of observations
+# obs_locs: [[269,0],[278,7],[123,-6],[202,2],[210,-18],[172,1],[144,14],[124,-2]]
+obs_locs: "./sst_obs.pkl"
+obs_mean_length: 12 # in months
+
 # obs_noise: 0.1 # observation noise
-obs_noise: 0.01 # variance of observation noise
-obs_path : './data/GODAS_up150m_temp_nino_tauxy_1980_2021_kb.nc'
+obs_noise: 0.2 # variance of observation noise
+obs_path : "./sst_obs.pkl"
+add_noise: True # if True, add noise to the observations, else not
+# ==============================
+true_path : './data/GODAS_up150m_temp_nino_tauxy_1980_2021_kb.nc'
 # ==============================
 Nens: 100 # number of ensemble members
 ens_path : './data/CMIP6_separate_model_up150m_tauxy_Nor_1850_2014_kb.nc'
 model_config: './Code'
 Ralpha: 0 # alpha * xp + (1-alpha) * xa
 # ==============================
-max_num : 30
-model_path : './model/Geoformer_beforeTrans.pkl'
+# dl model config
+max_num : 5
+model_path : "./model/Geo.pkl"
+# noise_path : "/glade/work/zilumeng/3D_trans/data/noise1/eof/m0_3x4p_1_leadmonth%s.pkl"
+noise_path: './data/noise/'
+noise_amp : 1 # None for 0.7
+cov_inf : 1
 # ==============================
-save_path : './Da_res/'
+save_path : '/glade/work/zilumeng/3D_trans/Da/res01/'
 # ==============================
-post_path : './Da_res/'
+post_path : '/glade/work/zilumeng/3D_trans/Da/res01/'
 
