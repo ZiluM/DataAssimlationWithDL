@@ -17,11 +17,18 @@ We use a deep learning (DL) model to better predict climate patterns in the trop
 ## Code description
 
 da.py: Data assimilation code
+
 myconfig1.py: Configuration file for DL model
+
 utils.py: Utility functions
+
 da.sh: Shell script to run the code
+
 config.yml : config file for DA
+
 ./Code/ : Directory containing the code for DL model
+
+./model: model weights
 
 
 
