@@ -1,0 +1,24 @@
+job_name: 'poppo0p09' # name of the job # means add variance to the analysis
+# ==============================
+start_time: "1980010100" # YYYYMMDDHH
+DA_length: 400 # in months
+# ==============================
+Nobs: 3 # number of observations
+obs_locs: [[269,0],[278,7],[123,-6]]
+# obs_mean_length: 3 # in months
+# obs_noise: 0.1 # observation noise
+obs_noise: 0.01 # variance of observation noise
+obs_path : './data/GODAS_up150m_temp_nino_tauxy_1980_2021_kb.nc'
+# ==============================
+Nens: 100 # number of ensemble members
+ens_path : './data/CMIP6_separate_model_up150m_tauxy_Nor_1850_2014_kb.nc'
+model_config: './Code'
+Ralpha: 0.9 # alpha * xp + (1-alpha) * xa
+# ==============================
+max_num : 30
+model_path : './model/Geoformer_beforeTrans.pkl'
+# ==============================
+save_path : './Da_res/'
+# ==============================
+post_path : './Da_res/'
+

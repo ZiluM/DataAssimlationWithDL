@@ -10,11 +10,11 @@ from dateutil.relativedelta import relativedelta
 import cftime
 from torch.utils.data import IterableDataset
 from torch.utils.data import Dataset
-sys.path.append("/glade/work/zilumeng/3D_trans/Code")
+sys.path.append("./Code")
 from Geoformer import Geoformer
 import torch
 import h5py
-sys.path.append("/glade/work/zilumeng/SSNLIM")
+sys.path.append("./SSNLIM")
 from slim import *
 from EOF import EOF
 # sys.path.append("/glade/work/zilumeng/3D_trans/Da/post")
