@@ -26,7 +26,7 @@ da.sh: Shell script to run the code
 
 config.yml : config file for DA
 
-./Code/ : Directory containing the code for DL model
+./Code/ : Directory containing the code for DL model; from Zhou&Zhang 2023 SciAdv (DOI:10.5281/zenodo.7445610)
 
 ./model: model weights
 
